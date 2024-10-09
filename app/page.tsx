@@ -275,7 +275,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="h-96 flex items-end bg-gray-800 rounded-lg p-4">
+          <div className="h-64 flex items-end bg-gray-800 rounded-lg p-4">
             {array.map((value, idx) => (
               <motion.div
                 key={idx}
