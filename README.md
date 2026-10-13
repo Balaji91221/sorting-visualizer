@@ -1,73 +1,55 @@
 # Sorting Visualizer
 
-A visual tool to demonstrate various sorting algorithms in action. This application provides a user-friendly interface for exploring how sorting algorithms like Bubble Sort, Merge Sort and Quick Sort work by visualizing each step of the process.
+**Connect sorting code to the array changes it produces.**
 
-## Table of Contents
+Next.js · TypeScript · React · Framer Motion · Tailwind CSS
 
-- [Features](#features)
-- [Demo](#demo)
-- [Technologies](#technologies)
-- [Setup](#setup)
-- [Usage](#usage)
+## Purpose
+
+Sorting algorithms are easier to understand when their comparisons and updates are visible. This application lets learners generate an array, choose an algorithm, and follow the animated execution alongside a code snippet.
 
 ## Features
 
-- 📊 **Visualize Sorting Algorithms**: Watch Bubble Sort and Quick Sort as they work through an array.
-- 🎛️ **Customizable Options**: Set custom array size and speed of visualization.
-- ⌨️ **Interactive Input**: Enter your own array to sort.
-- 🔄 **Real-Time Updates**: Observe comparisons and swaps highlighted during sorting.
-- 🛠️ **Choose Algorithms**: Select from various sorting algorithms.
-  
-## Demo
+- Bubble Sort, Quick Sort, and Merge Sort.
+- Random array generation with adjustable size.
+- Animation-speed controls.
+- Comparison highlights and active code-line state.
+- Start and stop controls for the current visualization.
 
-![Sorting Visualizer Demo](./demo.gif)
-<img width="946" alt="{D0720EC5-9AFF-41E0-B3DF-2D52575C9E5B}" src="https://github.com/user-attachments/assets/af03cea4-e911-4c75-b3c8-9332e6b60dd9">
+## Preview
 
+<img width="946" alt="Sorting Visualizer interface" src="https://github.com/user-attachments/assets/af03cea4-e911-4c75-b3c8-9332e6b60dd9">
 
-## Technologies
+## Run locally
 
-- **React.js**: Frontend library for building the UI components.
-- **Tailwind CSS**: Utility-first CSS framework for styling.
-- **Framer Motion**: For smooth animations during sorting steps.
+From the source directory, with Node.js/npm available:
 
-## Setup
-
-### Prerequisites
-
-- Node.js (>=14.0.0)
-- npm (comes with Node.js) or yarn
-
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/your-username/sorting-visualizer.git ```
-   
-2. Navigate to the project directory:
-   
 ```bash
-cd sorting-visualizer
- ```
+npm install
+npm run dev
+```
 
+Open [localhost:3000](http://localhost:3000). The project also defines `npm run build`, `npm start`, and `npm run lint`.
 
-### Usage 
+## Try a comparison
 
-- **Generate New Array**: 
-  - Click on the "Generate New Array" button to create a new random array.
+1. Generate a small array so each change is easy to follow.
+2. Select Bubble Sort and lower the animation speed.
+3. Start sorting and watch the highlighted bars and code.
+4. Generate a new array and repeat with Quick Sort or Merge Sort.
 
-- **Set Custom Array**: 
-  - Enter numbers separated by commas (e.g., `5, 3, 8, 1`) into the input box and click the "Set Custom Array" button to visualize sorting on your custom array.
+## Architecture
 
-- **Select Algorithm**: 
-  - Use the dropdown menu to select the sorting algorithm you want to visualize. Choose between **Bubble Sort** and **Quick Sort**.
+```mermaid
+flowchart LR
+    C[Algorithm and speed controls] --> A[Async sorting routines]
+    A --> S[Array and comparison state]
+    S --> V[Animated bars]
+    S --> P[Code-step display]
+```
 
-- **Control Array Size and Speed**: 
-  - Use the sliders to adjust the array size and the sorting speed according to your preference.
-  - Increase the array size for a more complex sorting process, or decrease it for quicker visualization.
-  - Adjust the speed slider to control the sorting speed, with options ranging from slow (more detailed visualization) to fast (quicker completion).
+The implementation lives primarily in [`app/page.tsx`](app/page.tsx). React state drives the bars and code highlights; refs retain the current array and cancellation flag during asynchronous work. Shared controls are in [`components/ui/`](components/ui/).
 
-- **Start/Stop Sorting**: 
-  - Click on the "Start Sorting" button to begin visualizing the sorting process step-by-step.
-  - At any time, you can click the "Stop Sorting" button to halt the process.
+## Scope
 
+This is a visual teaching application, not a sorting benchmark: intentional animation delays dominate elapsed time. Algorithm state is local to the browser session. The source currently generates random arrays; a custom-array input is not exposed by the page.
